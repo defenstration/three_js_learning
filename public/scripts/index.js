@@ -1,8 +1,7 @@
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.155.0/build/three.module.js';
-
-// Uncomment if you want to add controls or GLTF loading functionality
 // import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.155.0/examples/jsm/controls/OrbitControls.js';
 // import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three@0.155.0/examples/jsm/loaders/GLTFLoader.js';
+
 
 const main = document.getElementById("scene");
 
@@ -19,11 +18,28 @@ const material = new THREE.MeshBasicMaterial({ color: 'green' });
 const cube = new THREE.Mesh(geometry, material);
 scene.add(cube);
 
-camera.position.z = 5;
+camera.position.z = 15;
+
+const lineMaterial = new THREE.LineBasicMaterial( {color: "blue"} )
+
+const points = []
+points.push(new THREE.Vector3(-5, 0, 0))
+points.push(new THREE.Vector3(0, 5, 0))
+points.push(new THREE.Vector3(0, 0, 5))
+
+const lineGeometry = new THREE.BufferGeometry().setFromPoints(points)
+
+const line = new THREE.Line(lineGeometry, lineMaterial)
+
+scene.add(line)
 
 const animate = () => {
     cube.rotation.x += 0.01;
     cube.rotation.y += 0.01;
+
+    //line.rotation.x -= .01;
+    //line.rotation.y -= .01;
+
     renderer.render(scene, camera);
 };
 
